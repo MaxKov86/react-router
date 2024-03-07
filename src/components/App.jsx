@@ -1,15 +1,19 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import Home from '../pages/Home';
+import Payments from '../pages/Payments';
+import Navigation from './Navigation/Navigation';
+import NotFound from '../pages/NotFound';
+import PaymentDetails from '../pages/PaymentDetails';
 
 function App() {
   return (
     <>
-      <nav>
-        <NavLink to="/">Home Page</NavLink>
-        <NavLink to="/dogs">Collection</NavLink>
-      </nav>
+      <Navigation />
       <Routes>
-        <Route path="/" element={<div>Home Page</div>} />
-        <Route path="/dogs" element={<div>Collection</div>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/payments" element={<Payments />} />
+        <Route path="/payments/:paymentId" element={<PaymentDetails />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
