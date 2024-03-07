@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getPaymentDetails } from '../payment-api';
 
@@ -25,17 +25,25 @@ const PaymentDitails = () => {
   }, [paymentId]);
   return (
     <>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>Error</p>}
+      {payment && (
+        <ul>
+          <li>Card Owner:{payment.cardOwner}</li>
+          <li>Card Type: {payment.cardType}</li>
+          <li>Card Number: {payment.cardNumber}</li>
+        </ul>
+      )}
+
       <ul>
-        {isLoading && <p>Loading...</p>}
-        {error && <p>Error</p>}
-        {payment && (
-          <ul>
-            <li>Card Owner:{payment.cardOwner}</li>
-            <li>Card Type: {payment.cardType}</li>
-            <li>Card Number: {payment.cardNumber}</li>
-          </ul>
-        )}
+        <li>
+          <NavLink to="client">Client Info</NavLink>
+        </li>
+        <li>
+          <NavLink to="bank">Bank Info</NavLink>
+        </li>
       </ul>
+      <Outlet />
     </>
   );
 };
